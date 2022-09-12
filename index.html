@@ -4,11 +4,11 @@
         <title>Beach income checking</title>
     </head>
     <body>
-        <h1>Beach income checking</h1>
+        <h3>Beach income checking</h3>
 
 
         <ul>
-            <li>開班飲料</li>
+            <li>開店飲料</li>
                 <b>30元 冰箱</b>
                 <!-- <input type="number" name="name" placeholder="number" id="drink0"> -->
                 <input type="number" name="name" placeholder="number" class="drink">
@@ -25,7 +25,7 @@
                 <br>
                 <br>
 
-            <li>收班飲料</li>
+            <li>收店飲料</li>
                 <b>30元 冰箱</b>
                 <!-- <input type="number" name="name" placeholder="number" id="drink4"> -->
                 <input type="number" name="name" placeholder="number" class="drink">
@@ -61,17 +61,35 @@
                 <br>
 
             <li>沙灘訂便當</li>
-                <b>便當錢</b>
-                <input type="number" name="name" placeholder="number" id="lunch">
+                <b>客人便當總金額</b>
+                <input type="number" name="name" placeholder="money" id="lunch">
+                <br>
                 <br>
 
-            <li>其他</li>
+            <li>其他加減金額</li>
+                <b>加</b>
+                <input type="number" name="name" placeholder="money" id="plus">
+                <br>
+                <b>減</b>
+                <input type="number" name="name" placeholder="money" id="minus">
+                <br>
+                <br>
+            
+            <li>開店零用金</li>
+                <input type="number" name="name" placeholder="money" id="initMoney">
+                <br>
+
         </ul>
 
-        <div id="test"></div>
-
-        <b>應收:</b>
-        <div id="income"></div>
+        <br>
+        <b>實收(收店時錢袋總金額) : </b>
+        <input type="number" name="name" placeholder="money" id="finalMoney">
+        <br>
+        <br>
+        <b>應收 :</b>
+        <div id="expected_income"></div>
+        <b>結餘(實收 - 應收) :</b>
+        <div id="balence"></div>
         
         <br>
         <!-- <button id="submit" onclick="handle_click(this)">complete</button> -->
@@ -79,29 +97,69 @@
         <br>
 
         <script>
-            var test = 999999
-            document.getElementById('test').innerHTML = test;
 
             // function handle_click(element){
             //     element.innerText = "clicked";
             //     element.style.color = 'red'
             // }
 
-            var submit = document.getElementById('submit');
-            // var drink = document.getElementById('drink');
-            var drink = document.getElementsByClassName('drink');
-            var income = document.getElementById('income');
+            const submit = document.getElementById('submit');
+            const drink_input = document.getElementsByClassName('drink');
+            const beer_group = document.getElementById('beerGroup')
+            const surfboard_input = document.getElementsByClassName('surfboard');
+            const lunch_money = document.getElementById('lunch')
+            const plus = document.getElementById('plus')
+            const minus = document.getElementById('minus')
+            const init_money = document.getElementById('initMoney')
+            const final_money = document.getElementById('finalMoney')
+
+            const income_output = document.getElementById('expected_income');
+            const balence = document.getElementById('balence');
+
+            drink = new Array(8).fill(0)
+            surfboard = new Array(3).fill(0)
             
 
             submit.addEventListener('click', function(){
-                // console.log('hi');
-                var d = 0
-                d = drink[0].value + drink[1].value;
 
+                for (let i = 0; i < drink_input.length; i++) {
+                    drink[i] = Number(drink_input[i].value)
+                }
 
-                d = Number(d)
-                income.innerHTML = d
+                for (let i = 0; i < surfboard_input.length; i++) {
+                    surfboard[i] = Number(surfboard_input[i].value)
+                }
                 
+                console.log(drink[0]);
+                console.log(typeof(drink));
+                d = drink[0] + drink[1];
+
+                // drink
+                var income = 30 * (drink[0] + drink[1] - drink[4] - drink[5]);
+                income += 35 * (drink[2] + drink[3] - drink[6] - drink[7]);
+
+                // beer group number
+                income -= 5 * Number(beer_group.value)
+
+                // surfboard
+                income += 500 * surfboard[0]
+                income += 250 * surfboard[1]
+                income += 300 * surfboard[2]
+
+                // lunch
+                income += Number(lunch_money.value)
+
+                // other plus and minus
+                income += Number(plus.value)
+                income -= Number(minus.value)
+
+                // initial money
+                income += Number(init_money.value)
+
+                // expected income
+                income_output.innerHTML = income;
+                // balence
+                balence.innerHTML = Number(final_money.value) - income;
             })
 
 
