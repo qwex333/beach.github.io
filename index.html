@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Beach income checking</title>
+    </head>
+    <body>
+        <h1>Beach income checking</h1>
+
+
+        <ul>
+            <li>開班飲料</li>
+                <b>30元 冰箱</b>
+                <!-- <input type="number" name="name" placeholder="number" id="drink0"> -->
+                <input type="number" name="name" placeholder="number" class="drink">
+                <b>30元 外面</b>
+                <!-- <input type="number" name="name" placeholder="number" id="drink1"> -->
+                <input type="number" name="name" placeholder="number" class="drink">
+                <br>
+                <b>35元 冰箱</b>
+                <!-- <input type="number" name="name" placeholder="number" id="drink2"> -->
+                <input type="number" name="name" placeholder="number" class="drink">
+                <b>35元 外面</b>
+                <!-- <input type="number" name="name" placeholder="number" id="drink3"> -->
+                <input type="number" name="name" placeholder="number" class="drink">
+                <br>
+                <br>
+
+            <li>收班飲料</li>
+                <b>30元 冰箱</b>
+                <!-- <input type="number" name="name" placeholder="number" id="drink4"> -->
+                <input type="number" name="name" placeholder="number" class="drink">
+                <b>30元 外面</b>
+                <!-- <input type="number" name="name" placeholder="number" id="drink5"> -->
+                <input type="number" name="name" placeholder="number" class="drink">
+                <br>
+                <b>35元 冰箱</b>
+                <!-- <input type="number" name="name" placeholder="number" id="drink6"> -->
+                <input type="number" name="name" placeholder="number" class="drink">
+                <b>35元 外面</b>
+                <!-- <input type="number" name="name" placeholder="number" id="drink7"> -->
+                <input type="number" name="name" placeholder="number" class="drink">
+                <br>
+                <br>
+
+            <li>啤酒3瓶100登記區</li>
+                <b>幾組</b>
+                <input type="number" name="name" placeholder="number" id="beerGroup">
+                <br>
+                <br>
+                
+            <li>沙灘租板</li>
+                <b>L 長板</b>
+                <input type="number" name="name" placeholder="number" class="surfboard">
+                <br>
+                <b>B 趴板</b>
+                <input type="number" name="name" placeholder="number" class="surfboard">
+                <br>
+                <b>S 傘位</b>
+                <input type="number" name="name" placeholder="number" class="surfboard">
+                <br>
+                <br>
+
+            <li>沙灘訂便當</li>
+                <b>便當錢</b>
+                <input type="number" name="name" placeholder="number" id="lunch">
+                <br>
+
+            <li>其他</li>
+        </ul>
+
+        <div id="test"></div>
+
+        <b>應收:</b>
+        <div id="income"></div>
+        
+        <br>
+        <!-- <button id="submit" onclick="handle_click(this)">complete</button> -->
+        <button id="submit">complete</button>
+        <br>
+
+        <script>
+            var test = 999999
+            document.getElementById('test').innerHTML = test;
+
+            // function handle_click(element){
+            //     element.innerText = "clicked";
+            //     element.style.color = 'red'
+            // }
+
+            var submit = document.getElementById('submit');
+            // var drink = document.getElementById('drink');
+            var drink = document.getElementsByClassName('drink');
+            var income = document.getElementById('income');
+            
+
+            submit.addEventListener('click', function(){
+                // console.log('hi');
+                var d = 0
+                d = drink[0].value + drink[1].value;
+
+
+                d = Number(d)
+                income.innerHTML = d
+                
+            })
+
+
+        </script>
+        
+
+    </body>
+</html>
