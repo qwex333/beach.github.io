@@ -4,7 +4,7 @@
         <title>Beach income checking</title>
         <style>
             li{
-                color: orange;
+                color: blue;
                 font-weight: bold;
             }
         </style>
@@ -12,6 +12,8 @@
     <body>
         <h3>Beach income checking</h3>
         <b>Note: default = 0</b>
+
+        <p style="color: crimson; font-size: 24px; font-weight: bold;">應收(含開店時零用金) : </p>
 
         <ul>
             <li>開店飲料</li>
@@ -88,18 +90,63 @@
         </ul>
 
         <br>
-        <b style="color: crimson; font-size: 18px;">實收(收店時錢袋總金額) : </b>
-        <input type="number" name="name" placeholder="money" id="finalMoney">
-        <br>
+        <!-- <b style="color: crimson; font-size: 24px;">實收(收店時錢袋總金額) : </b> -->
+        <p style="color: crimson; font-size: 24px; font-weight: bold;">
+            實收(收店時錢袋總金額) : 
+            <input type="number" name="name" placeholder="money" id="finalMoney">
+        </p>
+
+        <text>OR</text>
+
+        <ul>
+            <li>
+                1000 :
+                <input type="number" name="name" placeholder="number" class="countFinalMoney">
+            </li>
+            <br>
+            
+            <li>
+                500 :
+                <input type="number" name="name" placeholder="number" class="countFinalMoney">
+            </li>
+            <br>
+
+            <li>
+                100 :
+                <input type="number" name="name" placeholder="number" class="countFinalMoney">
+            </li>
+            <br>
+
+            <li>
+                50 :
+                <input type="number" name="name" placeholder="number" class="countFinalMoney">
+            </li>
+            <br>
+
+            <li>
+                10 :
+                <input type="number" name="name" placeholder="number" class="countFinalMoney">
+            </li>
+            <br>
+
+            <li>
+                5 :
+                <input type="number" name="name" placeholder="number" class="countFinalMoney">
+            </li>
+            <br>
+            
+        </ul>
 
         <br>
         <!-- <button id="submit" onclick="handle_click(this)">complete</button> -->
-        <button id="submit">calculate</button>
+        <button id="submit" style="font-size: 24pt;">calculate</button>
         <br>
 
         <br>
         <b>應收 :</b>
         <div id="expected_income"></div>
+        <b>實收 :</b>
+        <div id="exact_income"></div>
         <b>結餘(實收 - 應收) :</b>
         <div id="balence"></div>
         <br>
@@ -110,66 +157,100 @@
 
             // function handle_click(element){
             //     element.innerText = "clicked";
-            //     element.style.color = 'red'
+            //     element.style.color = 'red';
             // }
 
+            // Input values to catch
             const submit = document.getElementById('submit');
             const drink_input = document.getElementsByClassName('drink');
-            const beer_group = document.getElementById('beerGroup')
+            const beer_group = document.getElementById('beerGroup');
             const surfboard_input = document.getElementsByClassName('surfboard');
-            const lunch_money = document.getElementById('lunch')
-            const plus = document.getElementById('plus')
-            const minus = document.getElementById('minus')
-            const init_money = document.getElementById('initMoney')
-            const final_money = document.getElementById('finalMoney')
+            const lunch_money = document.getElementById('lunch');
+            const plus = document.getElementById('plus');
+            const minus = document.getElementById('minus');
+            const init_money = document.getElementById('initMoney');
 
-            const income_output = document.getElementById('expected_income');
+            const final_money_input = document.getElementById('finalMoney');
+            const count_final_money_input = document.getElementsByClassName('countFinalMoney');
+            
+            // Output to show
+            const expected_income_output = document.getElementById('expected_income');
+            const exact_income_output = document.getElementById('exact_income');
             const balence = document.getElementById('balence');
 
-            drink = new Array(8).fill(0)
-            surfboard = new Array(3).fill(0)
+            drink = new Array(8).fill(0);
+            surfboard = new Array(3).fill(0);
+            count_final_money = new Array(6).fill(0);
             
 
             submit.addEventListener('click', function(){
 
+                // transfer classed items to array
                 for (let i = 0; i < drink_input.length; i++) {
-                    drink[i] = Number(drink_input[i].value)
+                    drink[i] = Number(drink_input[i].value);
                 }
 
                 for (let i = 0; i < surfboard_input.length; i++) {
-                    surfboard[i] = Number(surfboard_input[i].value)
+                    surfboard[i] = Number(surfboard_input[i].value);
                 }
                 
-                console.log(drink[0]);
-                console.log(typeof(drink));
-                d = drink[0] + drink[1];
+                for (let i = 0; i < count_final_money_input.length; i++) {
+                    count_final_money[i] = Number(count_final_money_input[i].value);
+                }
 
+
+                // Expected Income
                 // drink
                 var income = 30 * (drink[0] + drink[1] - drink[4] - drink[5]);
                 income += 35 * (drink[2] + drink[3] - drink[6] - drink[7]);
 
                 // beer group number
-                income -= 5 * Number(beer_group.value)
+                income -= 5 * Number(beer_group.value);
 
                 // surfboard
-                income += 500 * surfboard[0]
-                income += 250 * surfboard[1]
-                income += 300 * surfboard[2]
+                income += 500 * surfboard[0];
+                income += 250 * surfboard[1];
+                income += 300 * surfboard[2];
 
                 // lunch
-                income += Number(lunch_money.value)
+                income += Number(lunch_money.value);
 
                 // other plus and minus
-                income += Number(plus.value)
-                income -= Number(minus.value)
+                income += Number(plus.value);
+                income -= Number(minus.value);
 
                 // initial money
-                income += Number(init_money.value)
+                income += Number(init_money.value);
 
                 // expected income
-                income_output.innerHTML = income;
+                expected_income_output.innerHTML = income;
+
+
+                // Exact Income (money in the bag)
+                var final_money = Number(final_money_input.value);
+
+                // calculate exact income
+                if (final_money == 0) {
+                    final_money += 1000 * count_final_money[0];
+                    final_money += 500 * count_final_money[1];
+                    final_money += 100 * count_final_money[2];
+                    final_money += 50 * count_final_money[3];
+                    final_money += 10 * count_final_money[4];
+                    final_money += 5 * count_final_money[5];
+                }
+
+                // // to avoid users filling in total final money input and
+                // // final money counting input in one calculation
+                // for (let i = 0; i < count_final_money.length; i++) {
+                //     if (count_final_money[i] != 0 )
+                    
+                // }
+
+                // show exact income
+                exact_income_output.innerHTML = final_money
+
                 // balence
-                balence.innerHTML = Number(final_money.value) - income;
+                balence.innerHTML = Number(final_money_input.value) - income;
             })
 
 
