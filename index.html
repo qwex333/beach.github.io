@@ -152,6 +152,18 @@
         <br>
         <br>
 
+        <p style="color: crimson; font-size: 24px; font-weight: bold;">
+            算浪板 : 
+            <input type="text" name="name" placeholder="surfboard stack numbers" id="countSurfboards">
+        </p>
+        <text style="font-size: 12pt;">Note: less than 10 boards for 1 stack</text>
+        <br>
+        <b style="font-size: 16pt;">total surfboards :</b>
+        <div id="count_surfboards"></div>
+        <br>
+        <br>
+        <br>
+
 
         <script>
 
@@ -172,11 +184,13 @@
 
             const final_money_input = document.getElementById('finalMoney');
             const count_final_money_input = document.getElementsByClassName('countFinalMoney');
+            const count_surfboards_input = document.getElementById('countSurfboards');
             
             // Output to show
             const expected_income_output = document.getElementById('expected_income');
             const exact_income_output = document.getElementById('exact_income');
             const balence = document.getElementById('balence');
+            const count_surfboards_output = document.getElementById('count_surfboards');
 
             drink = new Array(8).fill(0);
             surfboard = new Array(3).fill(0);
@@ -247,10 +261,29 @@
                 // }
 
                 // show exact income
-                exact_income_output.innerHTML = final_money
+                exact_income_output.innerHTML = final_money;
 
                 // balence
                 balence.innerHTML = final_money - income;
+
+
+                // counting surfboards
+                count_surfboards = new Array;
+                var count_surfboards = count_surfboards_input.value;
+                var a = 0;
+                var b = 0;
+                var total_surfboards = 0;
+                for (let i = 0; i < count_surfboards.length; i++) {
+                    if (count_surfboards[i] != ' '){
+                        total_surfboards += Number(count_surfboards[i]);
+                    }
+                    // if (ount_surfboards[i] == ' '){
+                    //     a = b;
+                    //     b = i
+                    // }
+                    
+                }
+                count_surfboards_output.innerHTML = total_surfboards;
             })
 
 
